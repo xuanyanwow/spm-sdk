@@ -9,8 +9,8 @@ namespace spm\test;
 use spm\exception\Exception;
 use spm\exception\TimerException;
 use spm\utility\Timer;
-use \spm\bean\ApiDataBean;
-use \spm\Reporter;
+use spm\bean\ApiDataBean;
+use spm\Reporter;
 require_once "../vendor/autoload.php";
 class Report
 {
