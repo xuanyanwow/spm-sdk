@@ -38,6 +38,8 @@ public function response($code, $data, $msg, $apiReport = [])
 ```
 
 ```php
+use spm\exception\Exception;
+use spm\exception\TimerException;
 use spm\utility\Timer;
 use spm\bean\ApiDataBean;
 use spm\Reporter;
