@@ -18,7 +18,7 @@ class Guzzle extends Client
                 'query' => $data,
             ]);
         } catch (GuzzleException $e) {
-             echo $e->getResponse()->getBody();
+             // echo $e->getResponse()->getBody();
         }
 
     }

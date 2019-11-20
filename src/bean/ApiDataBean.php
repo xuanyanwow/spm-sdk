@@ -10,9 +10,13 @@ namespace spm\bean;
 
 
 use EasySwoole\Spl\SplBean;
+use spm\exception\Exception;
 
 class ApiDataBean extends SplBean
 {
+    const SUCCESS = 1;
+    const FAIL = 0;
+
     protected $category;
     protected $method;
     protected $consume_time;
@@ -112,9 +116,13 @@ class ApiDataBean extends SplBean
 
     /**
      * @param mixed $is_success
+     * @throws Exception
      */
-    public function setIsSuccess($is_success)
+    public function setIsSuccess(int $is_success)
     {
+        if ($is_success !== 1 && $is_success !==0){
+            throw new Exception("is_succee's value must be eq 0 or 1");
+        }
         $this->is_success = $is_success;
     }
 
@@ -129,9 +137,9 @@ class ApiDataBean extends SplBean
     /**
      * @param mixed $api_param
      */
-    public function setApiParam($api_param)
+    public function setApiParam(array $api_param)
     {
-        $this->api_param = $api_param;
+        $this->api_param = json_encode($api_param);
     }
 
     /**
