@@ -15,7 +15,7 @@ class Guzzle extends Client
         $client = new GuzzleClient(['base_uri' => $url]);
         try {
             $res = $client->request("POST", '', [
-                'query' => $data,
+                'form_params' => $data,
             ]);
         } catch (GuzzleException $e) {
              // echo $e->getResponse()->getBody();
