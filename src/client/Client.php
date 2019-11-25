@@ -4,11 +4,13 @@ namespace spm\client;
 
 
 use spm\bean\ApiDataBean;
+use spm\bean\ExceptionDataBean;
 use spm\bean\LogDataBean;
 use spm\Config;
 
 abstract class Client
 {
+    /** @var Config */
     protected $config;
 
     /**
@@ -30,6 +32,18 @@ abstract class Client
         return $this->send($url, $data);
     }
 
+    /**
+     * 上报异常
+     * @param ExceptionDataBean $bean
+     * @return mixed
+     */
+    public function exception_report(ExceptionDataBean $bean)
+    {
+        $url = $this->exceptionApiPath();
+        $bean->setProjectId($this->config->getProjectId());
+        return $this->send($url, $bean->toArray());
+    }
+
     public function __construct(Config $config)
     {
         $this->config = $config;
@@ -45,5 +59,10 @@ abstract class Client
     protected function logApiPath()
     {
         return $this->config->getUrl()."/api/log/report";
+    }
+
+    private function exceptionApiPath()
+    {
+        return $this->config->getUrl()."/api/abnormal/report";
     }
 }
