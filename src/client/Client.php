@@ -29,7 +29,8 @@ abstract class Client
      */
     public function log(LogDataBean $data){
         $url = $this->logApiPath();
-        return $this->send($url, $data);
+        $data->setProjectId($this->config->getProjectId());
+        return $this->send($url, $data->toArray());
     }
 
     /**
@@ -58,7 +59,7 @@ abstract class Client
 
     protected function logApiPath()
     {
-        return $this->config->getUrl()."/api/log/report";
+        return $this->config->getUrl()."/api/logs/report";
     }
 
     private function exceptionApiPath()

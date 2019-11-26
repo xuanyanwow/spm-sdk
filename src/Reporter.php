@@ -5,6 +5,7 @@ namespace spm;
 
 use spm\bean\ApiDataBean;
 use spm\bean\ExceptionDataBean;
+use spm\bean\LogDataBean;
 use spm\client\Client;
 use spm\client\Guzzle;
 use spm\exception\Exception;
@@ -51,6 +52,16 @@ class Reporter
         try {
             $client = $this->client();
             $client->exception_report($bean);
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public function log(LogDataBean $bean)
+    {
+        try {
+            $client = $this->client();
+            return $client->log($bean);
         } catch (Exception $e) {
             return false;
         }

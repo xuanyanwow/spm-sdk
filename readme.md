@@ -110,6 +110,17 @@ Reporter::instance()->exception_report($bean);
 
 ## 日志上报
 
-待完成
+```php
+use spm\bean\LogDataBean;
+use spm\Reporter;
+
+$bean = new LogDataBean();
+$bean->setLogCategory("Wechat/Test/SDK");
+$bean->setLogData('{"key": "value"}');
+$bean->setLogFrom("SDK");
+$bean->setLogPoint("test guzzle");
+$bean->setLogSn("123456");
+Reporter::instance()->log($bean);
+```
 
 ## 事务管理
