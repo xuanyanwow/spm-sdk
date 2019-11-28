@@ -20,6 +20,7 @@ abstract class Client
      */
     public function report(ApiDataBean $data){
         $url = $this->reportApiPath();
+        $data->setProjectId($this->config->getProjectId());
         return $this->send($url, $data->toArray());
     }
 

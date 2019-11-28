@@ -25,6 +25,25 @@ class ApiDataBean extends SplBean
     protected $is_success;
     protected $api_param;
     protected $api_response;
+    protected $project_id;
+
+    /**
+     * @return mixed
+     */
+    public function getProjectId()
+    {
+        return $this->project_id;
+    }
+
+    /**
+     * @param mixed $project_id
+     */
+    public function setProjectId($project_id)
+    {
+        $this->project_id = $project_id;
+    }
+
+
 
     /**
      * @return mixed
