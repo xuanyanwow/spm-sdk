@@ -103,4 +103,10 @@ class Reporter
                 break;
         }
     }
+
+
+    public function setLazyLog($bool = true)
+    {
+        $this->config->setLazyLog($bool);
+    }
 }
