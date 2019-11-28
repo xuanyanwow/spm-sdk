@@ -7,6 +7,7 @@ use spm\bean\ApiDataBean;
 use spm\bean\ExceptionDataBean;
 use spm\bean\LogDataBean;
 use spm\Config;
+use spm\utility\LazyLogData;
 
 abstract class Client
 {
@@ -27,11 +28,35 @@ abstract class Client
     /**
      * 上报log数据
      * @param $data
+     * @return mixed
      */
     public function log(LogDataBean $data){
-        $url = $this->logApiPath();
         $data->setProjectId($this->config->getProjectId());
+        if ($this->config->isLazyLog()){
+            LazyLogData::instance()->set($data);
+            return true;
+        }
+
+        $url = $this->logApiPath();
         return $this->send($url, $data->toArray());
+    }
+
+    /**
+     * 一次性上报懒log数据
+     * @return bool
+     */
+    public function lazy_log_send()
+    {
+        $lazyData = LazyLogData::instance()->get();
+        if (empty($lazyData)){
+            return true;
+        }
+
+        $url = $this->lazyLogPath();
+        $res = $this->send($url, ['json' => json_encode($lazyData, 256)]);
+        LazyLogData::instance()->reset();
+
+        return $res;
     }
 
     /**
@@ -66,5 +91,10 @@ abstract class Client
     private function exceptionApiPath()
     {
         return $this->config->getUrl()."/api/abnormal/report";
+    }
+
+    private function lazyLogPath()
+    {
+        return $this->config->getUrl()."/api/logs/lazy_report";
     }
 }

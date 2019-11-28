@@ -23,6 +23,7 @@ class Config extends SplBean
     protected $is_coroutine = self::NO_COROUTINE;
     protected $url;
     protected $project_id;
+    protected $lazy_log = false;
 
     /**
      * @return int
@@ -87,5 +88,23 @@ class Config extends SplBean
     {
         $this->project_id = $project_id;
     }
+
+    /**
+     * @return bool
+     */
+    public function isLazyLog(): bool
+    {
+        return $this->lazy_log;
+    }
+
+    /**
+     * @param bool $lazy_log
+     */
+    public function setLazyLog(bool $lazy_log)
+    {
+        $this->lazy_log = $lazy_log;
+    }
+
+
     
 }

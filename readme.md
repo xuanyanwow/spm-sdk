@@ -123,4 +123,33 @@ $bean->setLogSn("123456");
 Reporter::instance()->log($bean);
 ```
 
+可以懒上报，多个结果一次性上报 减少http tcp握手等消耗
+
+```php
+$config = new \spm\Config();
+$config->setUrl("http://www.siam.com/public/index.php");
+$config->setProjectId(1);
+Reporter::instance($config);
+
+$config->setLazyLog(true);
+
+$bean = new LogDataBean();
+$bean->setLogCategory("Wechat/Test_lazy/SDK");
+$bean->setLogData('{"key": "value"}');
+$bean->setLogFrom("SDK");
+$bean->setLogPoint("test guzzle");
+$bean->setLogSn("20191128");
+Reporter::instance()->log($bean); // 此时不会真正发送 
+
+$bean = new LogDataBean();
+$bean->setLogCategory("Wechat/Test_lazy/SDK");
+$bean->setLogData('22222');
+$bean->setLogFrom("SDK");
+$bean->setLogPoint("test guzzle");
+$bean->setLogSn("20191128");
+Reporter::instance()->log($bean);
+
+Reporter::instance()->lazy_log_send(); // 懒上报
+```
+
 ## 事务管理

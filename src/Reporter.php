@@ -66,6 +66,14 @@ class Reporter
             return false;
         }
     }
+    public function lazy_log_send()
+    {
+        try {
+            $client = $this->client();
+            $client->lazy_log_send();
+        } catch (Exception $e) {
+        }
+    }
 
     /**
      * @return mixed
